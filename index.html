@@ -1,0 +1,461 @@
+<html>
+
+<head>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link href="https://fonts.googleapis.com/css?family=Open+Sans|VT323" rel="stylesheet">
+	<script type="text/javascript">
+		(function() {
+			var css = document.createElement('link');
+			css.href = 'https://use.fontawesome.com/releases/v5.1.0/css/all.css';
+			css.rel = 'stylesheet';
+			css.type = 'text/css';
+			document.getElementsByTagName('head')[0].appendChild(css);
+		})();
+
+	</script>
+
+	<style>
+		body {
+			margin: 0;
+			padding: 0;
+			background: #292929;
+		}
+
+		.container {
+			max-width: 350px;
+			margin: 20px auto;
+		}
+
+		#calculator {
+			padding: 20px;
+			border-radius: 20px;
+			background-color: #5f5e5e;
+			box-sizing: border-box;
+			box-shadow: 0 0 15px #000;
+		}
+
+		.buttons {
+			background: #292929;
+			border-radius: 8px;
+		}
+
+		table {
+			width: 100%;
+		}
+
+		table,
+		tr,
+		td {
+			border-collapse: separate;
+			border-spacing: 10px;
+		}
+
+		#lower_buttons {
+			text-align: center;
+		}
+
+		.copy {
+			padding: 10px;
+			display: block;
+			color: #505050;
+			font-family: monospace;
+		}
+
+		#lower_buttons td {
+			padding: 15px 3px;
+			width: 25%;
+			box-sizing: border-box;
+			text-align: center;
+			font-family: 'Open Sans', sans-serif;
+			font-weight: bold;
+			cursor: pointer;
+			margin: 10px;
+			color: rgba(255, 255, 255, 0.75);
+			background-color: #171717;
+			border: 1px solid #171717;
+			border-radius: 6px;
+			box-shadow: 0px 5px 0px 0px #0d0d0d;
+			-webkit-tap-highlight-color: transparent;
+			-webkit-touch-callout: none;
+			-webkit-user-select: none;
+			-khtml-user-select: none;
+			-moz-user-select: none;
+			-ms-user-select: none;
+			user-select: none;
+		}
+
+		#lower_buttons td:hover {
+			background-color: #0f0f0f;
+			border-color: #0f0f0f;
+			/*outline:none;*/
+			box-shadow: 0px 5px 0px 0px black;
+		}
+
+		#lower_buttons td:active {
+			background-color: #0a0a0a;
+			border-color: #0a0a0a;
+			box-shadow: 0px 0px 0px 0px black;
+			transform: translateY(5px);
+			outline: none
+		}
+
+		#result {
+			margin-top: 10px;
+			font-weight: bold;
+			font-size: 2em;
+		}
+
+		.upper_buttons table {
+			width: 100%;
+			font-size: 20px;
+		}
+
+		.upper_buttons td {
+			width: 50%;
+			padding: 15px 3px;
+			box-sizing: border-box;
+			text-align: center;
+			color: rgba(255, 255, 255, 0.75);
+			background-color: #a13736;
+			border: 1px solid #a13736;
+			box-shadow: 0px 5px 0px 0px #551d1c;
+			font-weight: bold;
+			border-radius: 8px;
+			-webkit-tap-highlight-color: transparent;
+			-webkit-touch-callout: none;
+			-webkit-user-select: none;
+			-khtml-user-select: none;
+			-moz-user-select: none;
+			-ms-user-select: none;
+			user-select: none;
+		}
+
+		.upper_buttons td:hover {
+			background-color: #7b2a29;
+			border-color: #7b2a29;
+			/*outline:none;*/
+			box-shadow: 0px 5px 0px 0px #551d1c;
+		}
+
+		.upper_buttons td:active {
+			background-color: #551d1c;
+			border-color: #551d1c;
+			box-shadow: 0px 0px 0px 0px #551d1c;
+			transform: translateY(5px);
+			transition: 50ms ease-in;
+		}
+
+		#input {
+			font-size: 18px;
+			min-height: 36px;
+			max-height: 40px;
+			overflow-y: auto;
+			display: inline-block;
+			width: 100%;
+		}
+
+		#input:after {
+			content: "|";
+			font-size: 14px;
+			font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+			color: #2E3D48;
+			-webkit-animation: 1s blink step-end infinite;
+			-moz-animation: 1s blink step-end infinite;
+			-ms-animation: 1s blink step-end infinite;
+			-o-animation: 1s blink step-end infinite;
+			animation: 1s blink step-end infinite;
+		}
+
+		@keyframes "blink" {
+
+			from,
+			to {
+				color: transparent;
+			}
+
+			50% {
+				color: black;
+			}
+		}
+
+		@-moz-keyframes blink {
+
+			from,
+			to {
+				color: transparent;
+			}
+
+			50% {
+				color: black;
+			}
+		}
+
+		@-webkit-keyframes "blink" {
+
+			from,
+			to {
+				color: transparent;
+			}
+
+			50% {
+				color: black;
+			}
+		}
+
+		@-ms-keyframes blink {
+
+			0% {
+				opacity: 0
+			}
+
+			49% {
+				opacity: 0
+			}
+
+			50% {
+				opacity: 1
+			}
+		}
+
+		@-o-keyframes "blink" {
+
+			from,
+			to {
+				color: transparent;
+			}
+
+			50% {
+				color: black;
+			}
+		}
+
+		.display {
+			font-family: 'VT323', monospace;
+			width: 100%;
+			min-height: 80px;
+			position: relative;
+			background: #7c8a5c;
+			padding: 10px;
+			box-sizing: border-box;
+			margin-bottom: 16px;
+			border-radius: 8px;
+			box-shadow: inset 0 0 10px #000000;
+		}
+
+
+		#solar_panel {
+			width: 120px;
+			height: 30px;
+			background: #311711;
+			margin-bottom: 15px;
+			box-shadow: inset 0 0 5px #000000;
+			-webkit-tap-highlight-color: transparent;
+			-webkit-touch-callout: none;
+			-webkit-user-select: none;
+			-khtml-user-select: none;
+			-moz-user-select: none;
+			-ms-user-select: none;
+			user-select: none;
+		}
+
+		#solar_panel>span {
+			display: inline-block;
+			width: 25px;
+			height: 100%;
+			border-right: 1px solid #5d461b;
+		}
+
+	</style>
+
+</head>
+
+
+<body>
+
+	<div class="container">
+		<div id="calculator">
+			<div id="solar_panel">
+				<span></span>
+				<span></span>
+				<span></span>
+				<span></span>
+			</div>
+			<div class="display">
+				<div>
+					<span id="input"></span>
+				</div>
+				<div id="result">0</div>
+			</div>
+			<div class="buttons">
+				<div class="upper_buttons">
+					<table>
+						<tr>
+							<td id="clear"><i class="fas fa-times"></i></td>
+							<td id="bsp"><i class="fas fa-long-arrow-alt-left"></i></td>
+						</tr>
+					</table>
+				</div>
+				<div id="lower_buttons">
+					<table>
+						<tr>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+						</tr>
+						<tr>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+						</tr>
+						<tr>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+						</tr>
+						<tr>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+						</tr>
+						<tr>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+						</tr>
+					</table>
+					<span class="copy">Copyright &copy; - Mohammed BOUZAID</span>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<script>
+	
+		var buttons = document.getElementById('lower_buttons').getElementsByTagName('td');
+		var input = document.getElementById('input');
+		var result = document.getElementById('result');
+		var clear = document.getElementById('clear');
+		var bsp = document.getElementById('bsp');
+
+		var nums_history = new Array();
+		var sum = 0;
+		
+		var holdButtonInterval;
+		var holdButtonTimer;
+
+		console.clear();
+
+		for (var i = 0.25, j = 0; j < buttons.length; i += 0.25, j++) {
+			buttons[j].innerHTML = i;
+			buttons[j].addEventListener('click', function() {
+				var parsed = parseFloat(this.innerHTML);
+				sum += parsed;
+				input.innerHTML += (this.innerHTML + " + ");
+				result.innerHTML = sum;
+				nums_history.push(parsed);
+				input.scrollTop = input.scrollHeight;
+			});
+		}
+
+		bsp.addEventListener('click', back_space);
+		
+		bsp.addEventListener('mousedown', function(){
+			holdButtonTimer = setTimeout(function(){
+				holdButtonInterval = setInterval(back_space,100);
+			},1000);
+		});
+		
+		bsp.addEventListener('mouseup', function(){
+			clearInterval(holdButtonInterval);
+			clearTimeout(holdButtonTimer);
+		});
+
+		clear.addEventListener('click', clear_all);
+
+		function clear_all() {
+			nums_history = [];
+			result.innerHTML = 0;
+			input.innerHTML = "";
+			sum = 0;
+		}
+
+		function back_space() {
+			if (nums_history.length > 0) {
+				sum -= nums_history[nums_history.length - 1];
+				var lastIndex = input.innerHTML.lastIndexOf("+");
+				var secondLastIndex;
+				if (input.innerHTML.lastIndexOf("+") > -1) {
+					secondLastIndex = input.innerHTML.lastIndexOf("+", lastIndex - 1);
+				}
+				input.innerHTML = input.innerHTML.substring(0, secondLastIndex + 2);
+				result.innerHTML = sum;
+				if (nums_history.length == 1) {
+					clear_all();
+				} else {
+					nums_history.pop();
+				}
+			}
+		}
+
+		window.addEventListener('keyup', function(e) {
+
+			var value = null;
+
+			switch (e.key) {
+				case "Backspace":
+					if (e.target.tagName == 'BODY')
+						e.preventDefault();
+					back_space();
+					break;
+				case "Escape":
+				case "Delete":
+					clear_all();
+					break;
+				case "1":
+					value = 1;
+					break;
+				case "2":
+					value = 2;
+					break;
+				case "3":
+					value = 3;
+					break;
+				case "4":
+					value = 4;
+					break;
+				case "5":
+					value = 5;
+					break;
+				case "6":
+					value = 6;
+					break;
+				case "7":
+					value = 7;
+					break;
+				case "8":
+					value = 8;
+					break;
+				case "9":
+					value = 9;
+					break;
+			}
+
+			if (value != null) {
+				sum += value;
+				input.innerHTML += (value + " + ");
+				result.innerHTML = sum;
+				nums_history.push(value);
+				input.scrollTop = input.scrollHeight;
+			}
+		})
+
+	</script>
+
+</body>
+
+</html>
